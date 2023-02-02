@@ -273,7 +273,7 @@ function calcDielectric(depth, amplitude) {
 }
 
 function Update3dPlot() {
-  var graph3dDiv = document.getElementById('myDiv')
+  var graph3dDiv = document.getElementById('dielectricPlot')
   var depth = +document.getElementById('depthInput').value;
   var amplitude = +document.getElementById('amplitudeInput').value;
 
@@ -293,5 +293,5 @@ function Update3dPlot() {
   Plotly.react(graph3dDiv, new3dData, layout2);
 }
 
-console.log(data2);
-Plotly.newPlot('myDiv', data2, layout2);
+console.log("Creating 3d Plot");
+Plotly.newPlot('dielectricPlot', data2, layout2);

@@ -11,17 +11,38 @@
 </head>
 
 <body>
-  <div id="ampVsTime">
-    <div id="ampVsTimePlot"></div>
-    <!-- <input type="text" inputmode="numeric" pattern="[0-8.15]{4}" id="depth" placeholder="0 - 8.15"> -->
-    <label for="depthInput">Depth(cm):</label>
-    <input id="depthInput">
-    <label for="amplitudeInput">Amplitude (dB):</label>
-    <input id="amplitudeInput">
-    <input type="button" value="Enter" id="plotBtn">
+
+  <div class="plot-container">
+
+    <div class="plots">
+      <div id="ampVsTimePlot"></div>
+    </div>
+    <div class="plots">
+      <div id="dielectricPlot"></div>
+    </div>
+
+    <a class="prev" onclick="changePlot(-1)">&#10094;</a>
+    <a class="next" onclick="changePlot(1)">&#10095;</a>
+
   </div>
-  <div id="myDiv"></div>
+
+  <div style="text-align:center">
+    <span class="dot" onclick="currentPlot(1)"></span> 
+    <span class="dot" onclick="currentPlot(2)"></span> 
+  </div>
+
+  <!-- <div id="ampVsTime"> -->
+    <!-- <div id="ampVsTimePlot"></div> -->
+    <!-- <input type="text" inputmode="numeric" pattern="[0-8.15]{4}" id="depth" placeholder="0 - 8.15"> -->
+  <label for="depthInput">Depth(cm):</label>
+  <input id="depthInput">
+  <label for="amplitudeInput">Amplitude (dB):</label>
+  <input id="amplitudeInput">
+  <input type="button" value="Enter" id="plotBtn">
+  <!-- </div> -->
+  <!-- <div id="myDiv"></div> -->
   <!-- <script src="parse.js"></script> -->
+  <script src="navigation.js"></script>
   <script src="plot.js"></script>
   <script src="ribbon.js"></script>
   <script src="input_validation.js"></script>
