@@ -1,0 +1,6 @@
+:focus {
+    outline-color: blue;
+}
+.input-error{
+    outline-color: red;
+  }

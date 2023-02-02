@@ -1,0 +1,25 @@
+{
+  "name": "loam-data-analysis",
+  "version": "1.0.0",
+  "description": "Hello World!",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "author": "Chris Diaz",
+  "license": "MIT",
+  "dependencies": {
+    "chart.js": "^3.9.1",
+    "electron": "^11.5.0",
+    "plotly.js-dist": "^2.14.0"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cjdiaz19/Loam-Data-Analysis.git"
+  },
+  "bugs": {
+    "url": "https://github.com/cjdiaz19/Loam-Data-Analysis/issues"
+  },
+  "homepage": "https://github.com/cjdiaz19/Loam-Data-Analysis#readme"
+}

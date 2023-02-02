@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
+    <!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self';"> -->
+    <title>Loam: Soil Analysis</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="plotly-2.14.0.min.js"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js'></script>
+</head>
+
+<body>
+  <div id="ampVsTime">
+    <div id="ampVsTimePlot"></div>
+    <!-- <input type="text" inputmode="numeric" pattern="[0-8.15]{4}" id="depth" placeholder="0 - 8.15"> -->
+    <label for="depthInput">Depth(cm):</label>
+    <input id="depthInput">
+    <label for="amplitudeInput">Amplitude (dB):</label>
+    <input id="amplitudeInput">
+    <input type="button" value="Enter" id="plotBtn">
+  </div>
+  <div id="myDiv"></div>
+  <!-- <script src="parse.js"></script> -->
+  <script src="plot.js"></script>
+  <script src="ribbon.js"></script>
+  <script src="input_validation.js"></script>
+</body>
+</html>
