@@ -6,45 +6,94 @@
     <!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self';"> -->
     <title>Loam: Soil Analysis</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
     <script src="plotly-2.14.0.min.js"></script>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js'></script>
 </head>
 
 <body>
+    <div class="sidebar">
 
-  <div class="plot-container">
+      <div class="sidebar-element">
+        <div class="moisture-indicator">
+          <div class="indicator-body">
+            <div class="indicator-fill"></div>
+            <div class="indicator-cover">
+              <p>--</p>
+            </div>
+          </div>
+        </div>
+      </div>
 
-    <div class="plots">
-      <div id="ampVsTimePlot"></div>
+      <div class="sidebar-element">
+        <label for="options">Select a type:</label>
+        <select id="options" name="options" onchange="selectVeg(this.value)">
+          <option value="soybean" selected>Soybean</option>
+          <option value="rice">Rice</option>
+          <option value="potato">Potato</option>
+        </select>
+        <!-- <div class="dropdown-container">0p;
+          <button class="dropdown-btn">Select Type
+            <i class="fa fa-caret-down"></i>
+          </button>
+          <div class="dropdown-content">
+            <a class="option" href="#">Soybean</a>
+            <a class="option" href="#">Corn</a>
+            <a class="option" href="#">Wheat</a>
+          </div>
+        </div> -->
+      </div>
+
+      <div class="sidebar-element">
+        <label for="depthInput">Depth(cm):</label>
+        <input id="depthInput">
+      </div>
+
+      <div class="sidebar-element">
+        <label for="amplitudeInput">Amplitude(dB):</label>
+        <input id="amplitudeInput">
+      </div>
+
+      <div class="sidebar-element">
+        <input type="button" value="Enter" id="plotBtn">
+      </div>
+
     </div>
-    <div class="plots">
-      <div id="dielectricPlot"></div>
+      
+    <div class="plot-card">
+      <div class="plot-container">
+        <div class="plots">
+          <div id="ampVsTimePlot"></div>
+        </div>
+        <div class="plots">
+          <div id="dielectricPlot"></div>
+        </div>
+
+        <a class="prev" onclick="changePlot(-1)">&#10094;</a>
+        <a class="next" onclick="changePlot(1)">&#10095;</a>
+
+      </div>
+      <br>
+
+      <div style="text-align:center">
+        <div class="dot" onclick="currentPlot(1)"></div> 
+        <div class="dot" onclick="currentPlot(2)"></div> 
+      </div>  
+
     </div>
-
-    <a class="prev" onclick="changePlot(-1)">&#10094;</a>
-    <a class="next" onclick="changePlot(1)">&#10095;</a>
-
-  </div>
-
-  <div style="text-align:center">
-    <span class="dot" onclick="currentPlot(1)"></span> 
-    <span class="dot" onclick="currentPlot(2)"></span> 
-  </div>
-
+  
   <!-- <div id="ampVsTime"> -->
     <!-- <div id="ampVsTimePlot"></div> -->
     <!-- <input type="text" inputmode="numeric" pattern="[0-8.15]{4}" id="depth" placeholder="0 - 8.15"> -->
-  <label for="depthInput">Depth(cm):</label>
-  <input id="depthInput">
-  <label for="amplitudeInput">Amplitude (dB):</label>
-  <input id="amplitudeInput">
-  <input type="button" value="Enter" id="plotBtn">
+
   <!-- </div> -->
   <!-- <div id="myDiv"></div> -->
   <!-- <script src="parse.js"></script> -->
   <script src="navigation.js"></script>
+  <script src="moisture-indicator.js"></script>
   <script src="plot.js"></script>
   <script src="ribbon.js"></script>
   <script src="input_validation.js"></script>
 </body>
+
 </html>

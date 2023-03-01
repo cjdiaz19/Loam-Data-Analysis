@@ -23,7 +23,7 @@ function showPlot(n) {
     for (i = 0; i < dots.length; i++) {
       dots[i].className = dots[i].className.replace(" active", "");
     }
-    console.log(plot[plotIndex-1].style)
+    // console.log(plot[plotIndex-1].style)
     plot[plotIndex-1].style.display = "block"; 
     dots[plotIndex-1].className += " active";
 }
