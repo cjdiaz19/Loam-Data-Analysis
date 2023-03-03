@@ -1,250 +1,177 @@
-const dielectricConstants = [2.53, 2.74, 2.96, 3.18, 3.42, 3.67, 3.92, 4.18, 4.45, 4.73];
-const vmiValues = [0, 0.025, 0.05, 0.075, 0.1, 0.125, 0.15, 0.175, 0.2, 0.225];
 
-function createDepthArray(index) {
-  let newDepth = [];
-  for (let i = 0; i < dielectricConstants.length; i++) {
-    newDepth.push([depths[index], depths[index]]);
+const DIELECTRIC_CONSTANTS = [2.53, 2.74, 2.96, 3.18, 3.42, 3.67, 3.92, 4.18, 4.45, 4.73];
+const DC_EXTRAPOLATED = [4.92, 5.17, 5.41, 5.66, 5.90, 6.15, 6.39];
+const VMI_VALUES = [0, 0.025, 0.05, 0.075, 0.1, 0.125, 0.15, 0.175, 0.2, 0.225];
+const VMI_EXTRAPOLATED = [0.25, 0.275, 0.3, 0.325, 0.35, 0.375, 0.4];
+
+let extrapolatedDC = extrapolate(VMI_VALUES, DIELECTRIC_CONSTANTS);
+let dielectricConstant = createDielectricConstantArray(DIELECTRIC_CONSTANTS);
+let amp3d = createAmplitudeArray();
+let depth3d = createDepthArray();
+
+class Trace {
+  x;
+  y;
+  z;
+  name;
+  type;
+  showscale;
+  colorscale;
+
+  constructor(x, y, z, name, colorscale) {
+      this.x = x;
+      this.y = y;
+      this.z = z;
+      this.name = name;
+      this.type = 'surface';
+      this.showscale = false;
+      this.colorscale = colorscale;
   }
-  //console.log(newDepth)
-  return newDepth;
 }
 
-function createAmplitudeArray(index) {
-  let tmp = [];
-  for (let i = 0; i < dielectricConstants.length; i++) {
-    tmp.push(amplitudes[i][index]);
-    //console.log(amplitudes[i][index]);
-  }
-  let newAmp = [];
-  let minAmp = -6.0; //Math.min(...tmp);
-  for (let j = 0; j < tmp.length; j++) {
-    newAmp.push([tmp[j], minAmp]);
-  }
-  console.log(newAmp);
-  return newAmp;
-}
+let trace1 = new Trace(
+  dielectricConstant,
+  depth3d[0],
+  amp3d[0],
+  DEPTHS[0].toString(),
+  [['0', 'rgb(170,110,40)'], ['1.0', 'rgb(170,110,40)']], 
+)
 
-function createDielectricConstantArray(arr) {
-  let newArr = [];
-  // let minDielectricConstant = Math.min(...arr);
-  for (let i = 0; i < arr.length; i++) {
-    newArr.push([arr[i], arr[i]/*minDielectricConstant*/]);
-  }
-  return newArr;
-}
+let trace2 = new Trace(
+  dielectricConstant,
+  depth3d[1],
+  amp3d[1],
+  DEPTHS[1].toString(),
+  [['0', 'rgb(230,25,75)'], ['1.0', 'rgb(230,25,75)']], 
+)
 
-function calcVolMoisture(dielectricConstant) {
-  let index = 0;
-  for (let i = 0; i < dielectricConstants.length; i++) {
-    if (dielectricConstant < dielectricConstants[i]) {
-      index = i;
-      break;
-    }
-  }
+let trace3 = new Trace(
+  dielectricConstant,
+  depth3d[2],
+  amp3d[2],
+  DEPTHS[2].toString(),
+  [['0', 'rgb(250,190,212)'], ['1.0', 'rgb(250,190,212)']], 
+)
 
-  // console.log(dielectricConstants[index-1], vmiValues[index-1], dielectricConstants[index], vmiValues[index]);
-  let vmi = interpolate(dielectricConstant, dielectricConstants[index-1], vmiValues[index-1], dielectricConstants[index], vmiValues[index]);
-  return (vmi.toFixed(3));
-}
+let trace4 = new Trace(
+  dielectricConstant,
+  depth3d[3],
+  amp3d[3],
+  DEPTHS[3].toString(),
+  [['0', 'rgb(245,130,48)'], ['1.0', 'rgb(245,130,48)']], 
+)
 
-var trace1 = {
-  // x:figure.data[0].x, y:figure.data[0].y, z:figure.data[0].z,
-  x: createDielectricConstantArray(dielectricConstants),
-  y: createDepthArray(0),
-  z: createAmplitudeArray(0),
-  name: depths[0].toString(),
-  type: 'surface',
-  showscale: false,
-  colorscale: [['0', 'rgb(170,110,40)'], ['1.0', 'rgb(170,110,40)']],
-}
+let trace5 = new Trace(
+  dielectricConstant,
+  depth3d[4],
+  amp3d[4],
+  DEPTHS[4].toString(),
+  [['0', 'rgb(255,215,180)'], ['1.0', 'rgb(255,215,180)']], 
+)
 
-var trace2 = {
-  // x:figure.data[0].x, y:figure.data[0].y, z:figure.data[0].z,
-  x: createDielectricConstantArray(dielectricConstants),
-  y: createDepthArray(1),
-  z: createAmplitudeArray(1),
-  name: depths[1].toString(),
-  type: 'surface',
-  showscale: false,
-  colorscale: [['0', 'rgb(230,25,75)'], ['1.0', 'rgb(230,25,75)']],
-}
+let trace6 = new Trace(
+  dielectricConstant,
+  depth3d[5],
+  amp3d[5],
+  DEPTHS[5].toString(),
+  [['0', 'rgb(128,128,0)'], ['1.0', 'rgb(128,128,0)']], 
+)
 
-var trace3 = {
-  // x:figure.data[0].x, y:figure.data[0].y, z:figure.data[0].z,
-  x: createDielectricConstantArray(dielectricConstants),
-  y: createDepthArray(2),
-  z: createAmplitudeArray(2),
-  name: depths[2].toString(),
-  type: 'surface',
-  showscale: false,
-  colorscale: [['0', 'rgb(250,190,212)'], ['1.0', 'rgb(250,190,212)']],
-}
+let trace7 = new Trace(
+  dielectricConstant,
+  depth3d[6],
+  amp3d[6],
+  DEPTHS[6].toString(),
+  [['0', 'rgb(255,225,25)'], ['1.0', 'rgb(255,225,25)']], 
+)
 
-var trace4 = {
-  // x:figure.data[0].x, y:figure.data[0].y, z:figure.data[0].z,
-  x: createDielectricConstantArray(dielectricConstants),
-  y: createDepthArray(3),
-  z: createAmplitudeArray(3),
-  name: depths[3].toString(),
-  type: 'surface',
-  showscale: false,
-  colorscale: [['0', 'rgb(245,130,48)'], ['1.0', 'rgb(245,130,48)']],
-}
+let trace8 = new Trace(
+  dielectricConstant,
+  depth3d[7],
+  amp3d[7],
+  DEPTHS[7].toString(),
+  [['0', 'rgb(255,250,200)'], ['1.0', 'rgb(255,250,200)']], 
+)
 
-var trace5 = {
-  // x:figure.data[0].x, y:figure.data[0].y, z:figure.data[0].z,
-  x: createDielectricConstantArray(dielectricConstants),
-  y: createDepthArray(4),
-  z: createAmplitudeArray(4),
-  name: depths[4].toString(),
-  type: 'surface',
-  showscale: false,
-  colorscale: [['0', 'rgb(255,215,180)'], ['1.0', 'rgb(255,215,180)']],
-}
+let trace9 = new Trace(
+  dielectricConstant,
+  depth3d[8],
+  amp3d[8],
+  DEPTHS[8].toString(),
+  [['0', 'rgb(210,245,60)'], ['1.0', 'rgb(210,245,60)']], 
+)
 
-var trace6 = {
-  // x:figure.data[0].x, y:figure.data[0].y, z:figure.data[0].z,
-  x: createDielectricConstantArray(dielectricConstants),
-  y: createDepthArray(5),
-  z: createAmplitudeArray(5),
-  name: depths[5].toString(),
-  type: 'surface',
-  showscale: false,
-  colorscale: [['0', 'rgb(128,128,0)'], ['1.0', 'rgb(128,128,0)']],
-}
+let trace10 = new Trace(
+  dielectricConstant,
+  depth3d[9],
+  amp3d[9],
+  DEPTHS[9].toString(),
+  [['0', 'rgb(60,180,75)'], ['1.0', 'rgb(60,180,75)']], 
+)
 
-var trace7 = {
-  // x:figure.data[0].x, y:figure.data[0].y, z:figure.data[0].z,
-  x: createDielectricConstantArray(dielectricConstants),
-  y: createDepthArray(6),
-  z: createAmplitudeArray(6),
-  name: depths[6].toString(),
-  type: 'surface',
-  showscale: false,
-  colorscale: [['0', 'rgb(255,225,25)'], ['1.0', 'rgb(255,225,25)']],
-}
+let trace11 = new Trace(
+  dielectricConstant,
+  depth3d[10],
+  amp3d[10],
+  DEPTHS[10].toString(),
+  [['0', 'rgb(170, 255, 195)'], ['1.0', 'rgb(170, 255, 195)']], 
+)
 
-var trace8 = {
-  // x:figure.data[0].x, y:figure.data[0].y, z:figure.data[0].z,
-  x: createDielectricConstantArray(dielectricConstants),
-  y: createDepthArray(7),
-  z: createAmplitudeArray(7),
-  name: depths[7].toString(),
-  type: 'surface',
-  showscale: false,
-  colorscale: [['0', 'rgb(255,250,200)'], ['1.0', 'rgb(255,250,200)']],
-}
+let trace12 = new Trace(
+  dielectricConstant,
+  depth3d[11],
+  amp3d[11],
+  DEPTHS[11].toString(),
+  [['0', 'rgb(0,128,128)'], ['1.0', 'rgb(0,128,128)']], 
+)
 
-var trace9 = {
-  // x:figure.data[0].x, y:figure.data[0].y, z:figure.data[0].z,
-  x: createDielectricConstantArray(dielectricConstants),
-  y: createDepthArray(8),
-  z: createAmplitudeArray(8),
-  name: depths[8].toString(),
-  type: 'surface',
-  showscale: false,
-  colorscale: [['0', 'rgb(210,245,60)'], ['1.0', 'rgb(210,245,60)']],
-}
+let trace13 = new Trace(
+  dielectricConstant,
+  depth3d[12],
+  amp3d[12],
+  DEPTHS[12].toString(),
+  [['0', 'rgb(70,240,240)'], ['1.0', 'rgb(70,240,240)']], 
+)
 
-var trace10 = {
-  // x:figure.data[0].x, y:figure.data[0].y, z:figure.data[0].z,
-  x: createDielectricConstantArray(dielectricConstants),
-  y: createDepthArray(9),
-  z: createAmplitudeArray(9),
-  name: depths[9].toString(),
-  type: 'surface',
-  showscale: false,
-  colorscale: [['0', 'rgb(60,180,75)'], ['1.0', 'rgb(60,180,75)']],
-}
+let trace14 = new Trace(
+  dielectricConstant,
+  depth3d[13],
+  amp3d[13],
+  DEPTHS[13].toString(),
+  [['0', 'rgb(0,0,128)'], ['1.0', 'rgb(0,0,128)']], 
+)
 
-var trace11 = {
-  // x:figure.data[0].x, y:figure.data[0].y, z:figure.data[0].z,
-  x: createDielectricConstantArray(dielectricConstants),
-  y: createDepthArray(10),
-  z: createAmplitudeArray(10),
-  name: depths[10].toString(),
-  type: 'surface',
-  showscale: false,
-  colorscale: [['0', 'rgb(170, 255, 195)'], ['1.0', 'rgb(170, 255, 195)']],
-}
+let trace15 = new Trace(
+  dielectricConstant,
+  depth3d[14],
+  amp3d[14],
+  DEPTHS[14].toString(),
+  [['0', 'rgb(0, 130, 200)'], ['1.0', 'rgb(0, 130, 200)']], 
+)
 
-var trace12 = {
-  // x:figure.data[0].x, y:figure.data[0].y, z:figure.data[0].z,
-  x: createDielectricConstantArray(dielectricConstants),
-  y: createDepthArray(11),
-  z: createAmplitudeArray(11),
-  name: depths[11].toString(),
-  type: 'surface',
-  showscale: false,
-  colorscale: [['0', 'rgb(0,128,128)'], ['1.0', 'rgb(0,128,128)']],
-}
+let trace16 = new Trace(
+  dielectricConstant,
+  depth3d[15],
+  amp3d[15],
+  DEPTHS[15].toString(),
+  [['0', 'rgb(145,30,180)'], ['1.0', 'rgb(145,30,180)']], 
+)
 
-var trace13 = {
-  // x:figure.data[0].x, y:figure.data[0].y, z:figure.data[0].z,
-  x: createDielectricConstantArray(dielectricConstants),
-  y: createDepthArray(12),
-  z: createAmplitudeArray(12),
-  name: depths[12].toString(),
-  type: 'surface',
-  showscale: false,
-  colorscale: [['0', 'rgb(70,240,240)'], ['1.0', 'rgb(70,240,240)']],
-}
+let trace17 = new Trace(
+  dielectricConstant,
+  depth3d[16],
+  amp3d[16],
+  DEPTHS[16].toString(),
+  [['0', 'rgb(220,190,255)'], ['1.0', 'rgb(220,190,255)']], 
+)
 
-var trace14 = {
-  // x:figure.data[0].x, y:figure.data[0].y, z:figure.data[0].z,
-  x: createDielectricConstantArray(dielectricConstants),
-  y: createDepthArray(13),
-  z: createAmplitudeArray(13),
-  name: depths[13].toString(),
-  type: 'surface',
-  showscale: false,
-  colorscale: [['0', 'rgb(0,0,128)'], ['1.0', 'rgb(0,0,128)']],
-}
-
-var trace15 = {
-  // x:figure.data[0].x, y:figure.data[0].y, z:figure.data[0].z,
-  x: createDielectricConstantArray(dielectricConstants),
-  y: createDepthArray(14),
-  z: createAmplitudeArray(14),
-  name: depths[14].toString(),
-  type: 'surface',
-  showscale: false,
-  colorscale: [['0', 'rgb(0, 130, 200)'], ['1.0', 'rgb(0, 130, 200)']],
-}
-
-var trace16 = {
-  // x:figure.data[0].x, y:figure.data[0].y, z:figure.data[0].z,
-  x: createDielectricConstantArray(dielectricConstants),
-  y: createDepthArray(15),
-  z: createAmplitudeArray(15),
-  name: depths[15].toString(),
-  type: 'surface',
-  showscale: false,
-  colorscale: [['0', 'rgb(145,30,180)'], ['1.0', 'rgb(145,30,180)']],
-}
-
-var trace17 = {
-  // x:figure.data[0].x, y:figure.data[0].y, z:figure.data[0].z,
-  x: createDielectricConstantArray(dielectricConstants),
-  y: createDepthArray(16),
-  z: createAmplitudeArray(16),
-  name: depths[16].toString(),
-  type: 'surface',
-  showscale: false,
-  colorscale: [['0', 'rgb(220,190,255)'], ['1.0', 'rgb(220,190,255)']],
-}
-
-var trace18 = {
-  // x:figure.data[0].x, y:figure.data[0].y, z:figure.data[0].z,
-  x: createDielectricConstantArray(dielectricConstants),
-  y: createDepthArray(17),
-  z: createAmplitudeArray(17),
-  name: depths[17].toString(),
-  type: 'surface',
-  showscale: false,
-  colorscale: [['0', 'rgb(240,50,230)'], ['1.0', 'rgb(240,50,230)']],
-}
+let trace18 = new Trace(
+  dielectricConstant,
+  depth3d[17],
+  amp3d[17],
+  DEPTHS[17].toString(),
+  [['0', 'rgb(240,50,230)'], ['1.0', 'rgb(240,50,230)']], 
+)
 
 var data2 = [trace1, trace2, trace3, trace4, trace5, trace6, trace7, trace8, trace9, trace10, 
   trace11, trace12, trace13, trace14, trace15, trace16, trace17, trace18];
@@ -261,19 +188,81 @@ var layout2 = {
       x: 1.0, y: 1.0, z: 0.7
     },
     xaxis: {
-      title: 'Dielectric Constant',
+      title: 'Dielectric Constant',  
       range: [2.4, 4.8],
     },
     yaxis: {
       title: 'Depth',
-      range: [-0.5, 8.5],
+      range: [-0.5, 8.5]
     },
     zaxis: {
       title: 'Amplitude',
       range: [-6.0, 2.0],
+      font: {
+        family: 'Poppins',
+      }
+    },
+  },
+  paper_bgcolor: 'rgba(0,0,0,0)',
+  plot_bgcolor: 'rgba(0,0,0,0)',
+};
+
+
+function createDepthArray() {
+  let newDepth = [];
+  for (let j = 0; j < DEPTHS.length; j++) {
+    let trace = [];
+    for (let i = 0; i < DIELECTRIC_CONSTANTS.length; i++) {
+      trace.push([DEPTHS[j], DEPTHS[j]]);
+    }
+    newDepth.push(trace);
+  }
+  //console.log(newDepth)
+  return newDepth;
+}
+
+
+function createAmplitudeArray() {
+  let newAmp = [];
+  let MIN_AMP = -6.0;
+
+  for (let j = 0; j < DEPTHS.length; j++) {
+    let trace = [];
+    for (let i = 0; i < DIELECTRIC_CONSTANTS.length; i++) {
+      trace.push([AMPLITUDES[i][j], MIN_AMP]);
+      //console.log(AMPLITUDES[i][index]);
+    }
+    newAmp.push(trace);
+  }
+  // console.log(newAmp);
+  return newAmp;
+}
+
+
+function createDielectricConstantArray(arr) {
+  let newArr = [];
+  // let minDielectricConstant = Math.min(...arr);
+  for (let i = 0; i < arr.length; i++) {
+    newArr.push([arr[i], arr[i]/*minDielectricConstant*/]);
+  }
+  return newArr;
+}
+
+
+function calcVolMoisture(dielectricConstant) {
+  let index = 0;
+  for (let i = 0; i < DIELECTRIC_CONSTANTS.length; i++) {
+    if (dielectricConstant < DIELECTRIC_CONSTANTS[i]) {
+      index = i;
+      break;
     }
   }
-};
+
+  console.log(DIELECTRIC_CONSTANTS[index-1], VMI_VALUES[index-1], DIELECTRIC_CONSTANTS[index], VMI_VALUES[index]);
+  let vmi = interpolate(dielectricConstant, DIELECTRIC_CONSTANTS[index-1], VMI_VALUES[index-1], DIELECTRIC_CONSTANTS[index], VMI_VALUES[index]);
+  return (vmi.toFixed(3));
+}
+
 
 function calcDielectric(depth, amplitude) {
   
@@ -294,7 +283,7 @@ function calcDielectric(depth, amplitude) {
     }
   }
 
-  //find which amplitudes to use
+  //find which AMPLITUDES to use
   for (let m = 0; m < traceFloor.z.length; m++) {
     // console.log(traceFloor.z[m], amplitude);
     if (traceFloor.z[m][0] < amplitude) {
@@ -342,12 +331,35 @@ function interpolate(x, x0, y0, x1, y1) {
   return (((y0 * (x1 - x)) + (y1 * (x - x0))) / (x1 - x0))
 }
 
+
+function extrapolate(x, y) {
+  let xSum = 0, ySum = 0, xxSum = 0, xySum = 0;
+  let count = x.length;
+  for (var i = 0; i < count; i++) {
+    xSum += x[i];
+    ySum += y[i];
+    xxSum += x[i] * x[i];
+    xySum += x[i] * y[i];
+  }
+  var slope = (count * xySum - xSum * ySum) / (count * xxSum - xSum * xSum);
+  var intercept = (ySum / count) - (slope * xSum) / count;
+
+  var xValues = [];
+  var yValues = [];
+  for (var j = 0.25; j <= 0.425; j+= 0.025) {
+    xValues.push(j.toFixed(3));
+    yValues.push((j*slope + intercept).toFixed(3));
+  }
+  console.log(slope, xValues, yValues);
+  return [xValues, yValues];
+}
+
 function Update3dPlot() {
   var graph3dDiv = document.getElementById('dielectricPlot');
   var depth = +document.getElementById('depthInput').value;
   var amplitude = +document.getElementById('amplitudeInput').value;
-  let dielectricConstant =calcDielectric(depth, amplitude);
-
+  let dielectricConstant = calcDielectric(depth, amplitude);
+  console.log(dielectricConstant);
   let new3dInput = {
       x: [dielectricConstant],
       y: [depth],
@@ -378,4 +390,5 @@ function Update3dPlot() {
 
 console.log("Creating 3d Plot");
 console.log(data2[0]);
+
 Plotly.newPlot('dielectricPlot', data2, layout2);

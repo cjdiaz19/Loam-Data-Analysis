@@ -1,16 +1,16 @@
 const indicatorElement = document.querySelector(".moisture-indicator");
-const maxMoisture = 0.225;
+const MAX_MOISTURE = 0.225;
 var veg = "soybean";
 
 function setIndicator(indicator, moisture) {
 
     moisture = +moisture;
 
-    if (moisture < 0 || moisture > maxMoisture) {
+    if (moisture < 0 || moisture > MAX_MOISTURE) {
         return;
     }
 
-    let perc_moisture = 100 - ((moisture / maxMoisture) * 100);
+    let perc_moisture = 100 - ((moisture / MAX_MOISTURE) * 100);
     let TAW = 0.06;
     let FC = 0.1;
     let PWP = 0.04;
@@ -34,11 +34,11 @@ function setIndicator(indicator, moisture) {
     console.log(lowMoisture, moisture, highMoisture);
 
     if (moisture > highMoisture) {
-        indicator.querySelector(".indicator-fill").style.background = 'red';
+        indicator.querySelector(".indicator-fill").style.background = '#fc4349';
     } else if (lowMoisture < moisture && moisture <= highMoisture) {
-        indicator.querySelector(".indicator-fill").style.background = 'blue';
+        indicator.querySelector(".indicator-fill").style.background = '#3498db';
     } else if (moisture <= lowMoisture) {
-        indicator.querySelector(".indicator-fill").style.background = 'red';
+        indicator.querySelector(".indicator-fill").style.background = '#fc4349';
     }
 
     // console.log(perc_moisture);

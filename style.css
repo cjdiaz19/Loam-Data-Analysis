@@ -1,11 +1,15 @@
-* {box-sizing:border-box}
+* {box-sizing:border-box; font-family: 'Poppins';}
+
+body {
+  background-color: #ffffff;
+}
 
 :focus {
-    outline-color: blue;
+    outline-color: #3498db;
 }
 
 .input-error{
-    outline-color: red;
+    outline-color: #fc4349;
 }
 
 .sidebar {
@@ -14,8 +18,9 @@
   top: 0;
   left: 0;
   width: 200px;
-  background-color: #f1f1f1;
-  position: fixed;
+  background-color: #2c3e50;
+  color: #ffffff;
+  position: absolute;
   height: 100%;
   overflow: auto;
   float: left
@@ -30,7 +35,7 @@
   /* display: inline-block;
   vertical-align: middle; */
   padding: 0;
-  margin-left: 200px;
+  margin-left: 245px;
   /* box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); */
   width: 700px;
   max-width: 1000px;
@@ -41,22 +46,25 @@
   /* max-width: 1000px; */
   position: relative;
   margin: auto;
+  
 }
 
 /* Hide the images by default */
 .plots {
+  /* border: 2px solid black; */
+  border-radius: 5px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   display: none;
+  animation: fadeIn 0.6s;
 }
 
 /* Next & previous buttons */
 .prev, .next {
   cursor: pointer;
-  position: absolute;
-  top: 0%;
-  width: 5%;
-  padding: 25% 10px;
-  height: 100%;
-  color: black;
+  /* position: absolute */
+  padding: 10px;
+  margin: 0px 50px;
+  color: #2c3e50;
   font-weight: bold;
   font-size: 24px;
   transition: 0.6s ease;
@@ -64,17 +72,17 @@
   user-select: none;
 }
 
-.prev {
-  left: -1%;
-}
+/* .prev {
+  right: -10%;
+} */
 /* Position the "next button" to the right */
-.next {
-  right: -5%;
-}
+/* .next {
+  left: -10%;
+} */
 
 /* On hover, add a black background color with a little bit see-through */
 .prev:hover, .next:hover {
-  background-color: rgba(0,0,0,0.5);
+  background-color: rgba(44,62,80,0.5);
   color: white;
 }
 
@@ -85,14 +93,14 @@
   height: 15px;
   width: 15px;
   margin: 0 2px;
-  background-color: #bbb;
+  background-color: rgba(44,62,80,0.5);
   border-radius: 50%;
   display: inline-block;
   transition: background-color 0.6s ease;
 }
 
 .active, .dot:hover {
-  background-color: #717171;
+  background-color: rgba(44,62,80,1.0);
 }
 
 
@@ -108,7 +116,7 @@
     width: 100%;
     height: 100%;
     padding-bottom: 50%;
-    background: #b4c0be;
+    background: #ffffff;
     position: relative;
     border-radius: 50%;
     overflow: hidden;
@@ -119,7 +127,7 @@
     left: 0;
     width: inherit;
     height: 100%;
-    background: #009578;
+    background: #3498db;
     transform-origin: center bottom;
     transform: translateY(50%);
     transition: transform 0.2s ease-out;
@@ -128,7 +136,7 @@
 .indicator-cover {
     width: 75%;
     height: 75%;
-    background-color: #ffffff;
+    background-color: #d7dadb;
     position: absolute;
     top: 20%;
     left: 12.5%;
@@ -148,50 +156,7 @@
 }
 
 
-
-/* Dropdown Button */
-.dropdown-btn{
-  background-color: #04AA6D;
-  color: white;
-  padding: 16px 32px;
-  font-size: 16px;
-  border: none;
-}
-
-/* The container <div> - needed to position the dropdown content */
-.dropdown-container {
-  position: relative;
-  display: block;
-}
-
-/* Dropdown Content (Hidden by Default) */
-.dropdown-content {
-  display: none;
-  position: absolute;
-  background-color: #f1f1f1;
-  min-width: 160px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  z-index: 1;
-}
-
-/* Links inside the dropdown */
-.dropdown-content a {
-  color: black;
-  padding: 12px 16px;
-  text-decoration: none;
-  display: block;
-}
-
-/* Change color of dropdown links on hover */
-.dropdown-content a:hover {background-color: #ddd;}
-
-/* Show the dropdown menu on hover */
-.dropdown-container:hover .dropdown-content {display: block;}
-
-/* Change the background color of the dropdown button when the dropdown content is shown */
-.dropdown-container:hover .dropdown-btn {background-color: #3e8e41;}
-
-.fa-caret-down {
-  float: right;
-  /* padding-right: 8px; */
+@keyframes fadeIn {
+  0% { opacity: 0; transform: translateX(100%);}
+  100% { opacity: 1; transform: translateX(0%);}
 }

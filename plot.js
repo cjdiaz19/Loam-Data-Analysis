@@ -1,8 +1,10 @@
+// import { Line } from './line.js'
+
 TESTER = document.getElementById('ampVsTimePlot');
 
-const depths = [0,0.48,0.96,1.44,1.92,2.4,2.88,3.36,3.84,4.32,4.79,5.27,5.75,6.23,6.71,7.19,7.67,8.15];
+const DEPTHS = [0,0.48,0.96,1.44,1.92,2.4,2.88,3.36,3.84,4.32,4.79,5.27,5.75,6.23,6.71,7.19,7.67,8.15];
 
-const amplitudes = [[0.43653,0.48389624152076, 0.285882980590295, 0.100441990195097, -0.0849990002001002, -0.0882841881940968, 
+const AMPLITUDES = [[0.43653,0.48389624152076, 0.285882980590295, 0.100441990195097, -0.0849990002001002, -0.0882841881940968, 
     0.0720122611305655, 0.666052043921961, 1.61211540170085, 1.67251266103051, 1.25134159809905, 0.867887346773387, 
     1.1130989991996, 1.06072344032016, 0.41010844012006, -0.639676149574788, -1.11427936228114, -1.122131],
     [0.353297, 0.190211186093047, -0.0392467613806903, -0.371107429214607, -0.560742096548274, -0.723827910455228, -0.686832835917959,
@@ -33,83 +35,30 @@ const amplitudes = [[0.43653,0.48389624152076, 0.285882980590295, 0.100441990195
     -5.57941299149575, -5.29939268084042, -5.35444868784392, -5.41951487793897, -5.44318511855928, -5.36060110805403,
     -5.28265436718359, -5.32992198149075, -5.18727687243622, -4.7468288164082, -4.498764]
 ];
+class Line {
+    x;
+    y;
+    mode;
+    name;
 
-// let dataLine = {
-//     // waterLevel: 0,
-//     // time: 0,
-//     depths: depths,
-//     // amplitudes: [],
-// }
+    constructor(x, y, mode, name) {
+        this.x = x;
+        this.y = y;
+        this.mode = mode;
+        this.name = name;
+    }
+}
 
-let dataLine1 = {
-    x: depths,
-    y: amplitudes[0],
-    mode: 'lines',
-    name: 'Dry',
-};
-
-let dataLine2 = {
-    x: depths,
-    y: amplitudes[1],
-    mode: 'lines',
-    name: '50 ml',
-};
-
-let dataLine3 = {
-    x: depths,
-    y: amplitudes[2],
-    mode: 'lines',
-    name: '100 ml',
-};
-
-let dataLine4 = {
-    x: depths,
-    y: amplitudes[3],
-    mode: 'lines',
-    name: '150 ml',
-};
-
-let dataLine5 = {
-    x: depths,
-    y: amplitudes[4],
-    mode: 'lines',
-    name: '200 ml',
-};
-
-let dataLine6 = {
-    x: depths,
-    y: amplitudes[5],
-    mode: 'lines',
-    name: '250 ml',
-};
-
-let dataLine7 = {
-    x: depths,
-    y: amplitudes[6],
-    mode: 'lines',
-    name: '300 ml',
-};
-
-let dataLine8 = {
-    x: depths,
-    y: amplitudes[7],
-    mode: 'lines',
-    name: '350 ml',
-};
-
-let dataLine9 = {
-    x: depths,
-    y: amplitudes[8],
-    mode: 'lines',
-    name: '400 ml',
-};
-
-let dataLine10 = {
-    x: depths,
-    y: amplitudes[9],
-    mode: 'lines',
-    name: '450 ml',
-};
+let dataLine1 = new Line(DEPTHS, AMPLITUDES[0], 'lines', 'Dry');
+let dataLine2 = new Line(DEPTHS, AMPLITUDES[1], 'lines', '50 ml');
+let dataLine3 = new Line(DEPTHS, AMPLITUDES[2], 'lines', '100 ml');
+let dataLine4 = new Line(DEPTHS, AMPLITUDES[3], 'lines', '150 ml');
+let dataLine5 = new Line(DEPTHS, AMPLITUDES[4], 'lines', '200 ml');
+let dataLine6 = new Line(DEPTHS, AMPLITUDES[5], 'lines', '250 ml');
+let dataLine7 = new Line(DEPTHS, AMPLITUDES[6], 'lines', '300 ml');
+let dataLine8 = new Line(DEPTHS, AMPLITUDES[7], 'lines', '350 ml');
+let dataLine9 = new Line(DEPTHS, AMPLITUDES[8], 'lines', '400 ml');
+let dataLine10 = new Line(DEPTHS, AMPLITUDES[9], 'lines', '450 ml');
 
 let inputValue = {
     mode: 'markers',
@@ -117,9 +66,9 @@ let inputValue = {
     name: 'Input Value'
 };
 
-var trace2d = [dataLine1, dataLine2, dataLine3, dataLine4, dataLine5, dataLine6, dataLine7, dataLine8, dataLine9, dataLine10, inputValue]
+let trace2d = [dataLine1, dataLine2, dataLine3, dataLine4, dataLine5, dataLine6, dataLine7, dataLine8, dataLine9, dataLine10, inputValue]
 
-var layout = {
+let layout = {
     title: "Time vs. Amplitude at Different Moisture Levels",
     xaxis: {
         title: 'Depth (cm)',
@@ -129,7 +78,12 @@ var layout = {
     },
     legend: {
         y: 0.5, 
-    }
+    },
+    font: {
+        family: 'Poppins'
+    },
+    paper_bgcolor: 'rgba(0,0,0,0)',
+    plot_bgcolor: 'rgba(0,0,0,0)',
 }
 
 
@@ -146,7 +100,7 @@ function UpdatePlot() {
         name: 'Input Value'
     };
 
-    newData = trace2d[10] = newInput;
+    newData = trace2d[trace2d.length - 1] = newInput;
     // console.log(graphDiv);
     // console.log(newData);
     // console.log(layout);

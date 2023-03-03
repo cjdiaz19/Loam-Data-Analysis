@@ -6,7 +6,8 @@
     <!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self';"> -->
     <title>Loam: Soil Analysis</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css"> -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
     <script src="plotly-2.14.0.min.js"></script>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js'></script>
 </head>
@@ -45,13 +46,13 @@
       </div>
 
       <div class="sidebar-element">
-        <label for="depthInput">Depth(cm):</label>
-        <input id="depthInput">
+        <label for="depthInput">Depth (cm):</label>
+        <input id="depthInput" placeholder="0 - 8.15">
       </div>
 
       <div class="sidebar-element">
-        <label for="amplitudeInput">Amplitude(dB):</label>
-        <input id="amplitudeInput">
+        <label for="amplitudeInput">Amplitude (dB):</label>
+        <input id="amplitudeInput" placeholder="-6.0 - 2.0">
       </div>
 
       <div class="sidebar-element">
@@ -68,17 +69,20 @@
         <div class="plots">
           <div id="dielectricPlot"></div>
         </div>
-
+<!-- 
         <a class="prev" onclick="changePlot(-1)">&#10094;</a>
-        <a class="next" onclick="changePlot(1)">&#10095;</a>
+        <a class="next" onclick="changePlot(1)">&#10095;</a> -->
 
       </div>
       <br>
 
       <div style="text-align:center">
+        <a class="prev" onclick="changePlot(-1)">&#10094;</a>
         <div class="dot" onclick="currentPlot(1)"></div> 
-        <div class="dot" onclick="currentPlot(2)"></div> 
-      </div>  
+        <div class="dot" onclick="currentPlot(2)"></div>
+        <a class="next" onclick="changePlot(1)">&#10095;</a>
+      </div>
+
 
     </div>
   
