@@ -4,12 +4,12 @@ function setInputFilter(textbox, inputFilter, errMsg) {
       textbox.addEventListener(event, function(e) {
         if (event === "keypress" && e.key === "Enter") {
             if (document.activeElement === document.getElementById("amplitudeInput")) {
-                console.log(document.activeElement);
+                // console.log(document.activeElement);
                 UpdatePlot();
                 Update3dPlot();
             } else if (document.activeElement === document.getElementById("depthInput")){
                 document.getElementById("amplitudeInput").focus();
-                console.log(document.activeElement);
+                // console.log(document.activeElement);
             }
         }
         if (inputFilter(this.value)) {

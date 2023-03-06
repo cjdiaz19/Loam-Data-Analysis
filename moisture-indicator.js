@@ -1,5 +1,5 @@
 const indicatorElement = document.querySelector(".moisture-indicator");
-const MAX_MOISTURE = 0.225;
+const MAX_MOISTURE = 0.4;
 var veg = "soybean";
 
 function setIndicator(indicator, moisture) {
@@ -35,13 +35,22 @@ function setIndicator(indicator, moisture) {
 
     if (moisture > highMoisture) {
         indicator.querySelector(".indicator-fill").style.background = '#fc4349';
+        document.getElementById("report").innerHTML = "Land too hydrated. Refrain from irrigation";
+        document.getElementById("report").style.color = '#fc4349';
     } else if (lowMoisture < moisture && moisture <= highMoisture) {
         indicator.querySelector(".indicator-fill").style.background = '#3498db';
+        document.getElementById("report").innerHTML = "Land properly irrigated";
+        document.getElementById("report").style.color = '#3498db';
     } else if (moisture <= lowMoisture) {
+        indicator.querySelector(".indicator-fill").style.background = '#fc4349';
+        document.getElementById("report").innerHTML = "Land needs moisture. Irrigate land as soon as possible";
+        document.getElementById("report").style.color = '#fc4349';
+    } else {
         indicator.querySelector(".indicator-fill").style.background = '#fc4349';
     }
 
     // console.log(perc_moisture);
+    // document.getElementById("report").innerHTML = moisture;
 
     indicator.querySelector(".indicator-fill").style.transform = 
     `translateY(${

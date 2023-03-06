@@ -6,7 +6,7 @@ const VMI_EXTRAPOLATED = [0.25, 0.275, 0.3, 0.325, 0.35, 0.375, 0.4];
 let amp_extrapolated = [[-2.655376, -3.11855213306653, -3.38481151175588, -3.25019381790895, -3.73762646423212, -4.40386996598299, -4.6502887953977, -4.2991859929965, -3.739044, -3.68073688544272, -3.7583131835918, -3.83132617008504, -3.80666409004502, -3.95050472036018, -4.20833182891446, -4.34979449024512, -4.23860422511256, -3.935144],
   [-3.089209, -3.64977925312656, -3.99542033866934, -4.0285004042021, -5.12962054427214, -5.58258132916458, -5.73773916708354, -5.57941299149575, -5.29939268084042, -5.35444868784392, -5.41951487793897, -5.44318511855928, -5.36060110805403, -5.28265436718359, -5.32992198149075, -5.18727687243622, -4.7468288164082, -4.498764]];
 
-let extrapolatedAmp = extrapolateAmp();
+// let extrapolatedAmp = extrapolateAmp();
 let dielectricConstant = createDielectricConstantArray(DIELECTRIC_CONSTANTS);
 let amp3d = createAmplitudeArray();
 let depth3d = createDepthArray();
@@ -220,7 +220,7 @@ function createDepthArray() {
     }
     newDepth.push(trace);
   }
-  console.log(newDepth);
+  // console.log(newDepth);
   return newDepth;
 }
 
@@ -237,7 +237,7 @@ function createAmplitudeArray() {
     }
     newAmp.push(trace);
   }
-  console.log(newAmp);
+  // console.log(newAmp);
   return newAmp;
 }
 
@@ -248,7 +248,7 @@ function createDielectricConstantArray(arr) {
   for (let i = 0; i < arr.length; i++) {
     newArr.push([arr[i], arr[i]/*minDielectricConstant*/]);
   }
-  console.log(newArr)
+  // console.log(newArr)
   return newArr;
 }
 
@@ -262,7 +262,7 @@ function calcVolMoisture(dielectricConstant) {
     }
   }
 
-  console.log(DIELECTRIC_CONSTANTS[index-1], VMI_VALUES[index-1], DIELECTRIC_CONSTANTS[index], VMI_VALUES[index]);
+  // console.log(DIELECTRIC_CONSTANTS[index-1], VMI_VALUES[index-1], DIELECTRIC_CONSTANTS[index], VMI_VALUES[index]);
   let vmi = interpolate(dielectricConstant, DIELECTRIC_CONSTANTS[index-1], VMI_VALUES[index-1], DIELECTRIC_CONSTANTS[index], VMI_VALUES[index]);
   return (vmi.toFixed(3));
 }
@@ -291,6 +291,12 @@ function calcDielectric(depth, amplitude) {
   for (let m = 0; m < traceFloor.z.length; m++) {
     // console.log(traceFloor.z[m], amplitude);
     if (traceFloor.z[m][0] < amplitude) {
+      console.log(traceFloor.x[m][0], traceFloor.y[m][0], traceFloor.z[m][0]);
+      if (traceFloor.x[m][0] == 2.53) {
+        console.log("error");
+        setIndicator(indicatorElement, "NaN");
+        return "error";
+      }
       x00 = traceFloor.x[m][0];
       y00 = traceFloor.y[m][0];
       z00 = traceFloor.z[m][0];
@@ -309,7 +315,7 @@ function calcDielectric(depth, amplitude) {
       x11 = traceCeiling.x[n-1][0];
       y11 = traceCeiling.y[n-1][0];
       z11 = traceCeiling.z[n-1][0];
-      console.log(x10, x11);
+      // console.log(x10, x11);
       break;
     }
   }
@@ -358,19 +364,19 @@ function interpolate(x, x0, y0, x1, y1) {
 //   return [xValues, yValues];
 // }
 
-function extrapolateAmp() {
-  // console.log(extrapolate(DC_EXTRAPOLATED[0], DIELECTRIC_CONSTANTS[DIELECTRIC_CONSTANTS.length-2], amp3d[i][j-2][0], DIELECTRIC_CONSTANTS[DIELECTRIC_CONSTANTS.length-1], amp3d[i][j-2][0]));
-  // console.log(extrapolate(DC_EXTRAPOLATED[1], DIELECTRIC_CONSTANTS[DIELECTRIC_CONSTANTS.length-1], amp3d[i][j-2][0], DC_EXTRAPOLATED[0], amp3d[i][j-2][0]));
-  for (let i = 0; i < DC_EXTRAPOLATED.length-2; i++) {
-    let tmp = []
-    for (let j = 0; j < DEPTHS.length; j++) {
-      let newAmp = extrapolate(DC_EXTRAPOLATED[i+2], DC_EXTRAPOLATED[i], amp_extrapolated[i][j], DC_EXTRAPOLATED[i+1], amp_extrapolated[i+1][j]);
-      tmp.push(newAmp);
-      console.log(newAmp, DC_EXTRAPOLATED[i+2], DC_EXTRAPOLATED[i], amp_extrapolated[i+1][j]);
-    }
-    amp_extrapolated.push(tmp);
-  }
-}
+// function extrapolateAmp() {
+//   // console.log(extrapolate(DC_EXTRAPOLATED[0], DIELECTRIC_CONSTANTS[DIELECTRIC_CONSTANTS.length-2], amp3d[i][j-2][0], DIELECTRIC_CONSTANTS[DIELECTRIC_CONSTANTS.length-1], amp3d[i][j-2][0]));
+//   // console.log(extrapolate(DC_EXTRAPOLATED[1], DIELECTRIC_CONSTANTS[DIELECTRIC_CONSTANTS.length-1], amp3d[i][j-2][0], DC_EXTRAPOLATED[0], amp3d[i][j-2][0]));
+//   for (let i = 0; i < DC_EXTRAPOLATED.length-2; i++) {
+//     let tmp = []
+//     for (let j = 0; j < DEPTHS.length; j++) {
+//       let newAmp = extrapolate(DC_EXTRAPOLATED[i+2], DC_EXTRAPOLATED[i], amp_extrapolated[i][j], DC_EXTRAPOLATED[i+1], amp_extrapolated[i+1][j]);
+//       tmp.push(newAmp);
+//       // console.log(newAmp, DC_EXTRAPOLATED[i+2], DC_EXTRAPOLATED[i], amp_extrapolated[i+1][j]);
+//     }
+//     amp_extrapolated.push(tmp);
+//   }
+// }
 
 function extrapolate(x, x1, y1, x2, y2) {
   return (y1 + (((x - x1) / (x2 - x1)) * (y2 - y1)))
@@ -383,7 +389,9 @@ function Update3dPlot() {
   var amplitude = +document.getElementById('amplitudeInput').value;
   let dielectricConstant = calcDielectric(depth, amplitude);
   // console.log(dielectricConstant);
-  let new3dInput = {
+
+  if (dielectricConstant != "error") {
+    let new3dInput = {
       x: [dielectricConstant],
       y: [depth],
       z: [amplitude],
@@ -409,6 +417,10 @@ function Update3dPlot() {
   // console.log(new3dData);
   // console.log(layout2);
   Plotly.react(graph3dDiv, new3dData, layout2);
+  } else {
+    setIndicator(indicatorElement, "NaN");
+  }
+ 
 }
 
 console.log("Creating 3d Plot");

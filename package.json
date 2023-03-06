@@ -4,16 +4,17 @@
   "description": "Hello World!",
   "main": "main.js",
   "scripts": {
-    "start": "electron ."
+    "start": "electron-forge start",
+    "package": "electron-forge package",
+    "make": "electron-forge make"
   },
   "author": "Chris Diaz",
   "license": "MIT",
   "dependencies": {
     "chart.js": "^3.9.1",
-    "electron": "^11.5.0",
+    "electron-squirrel-startup": "^1.0.0",
     "plotly.js-dist": "^2.14.0"
   },
-  "devDependencies": {},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/cjdiaz19/Loam-Data-Analysis.git"
@@ -21,5 +22,13 @@
   "bugs": {
     "url": "https://github.com/cjdiaz19/Loam-Data-Analysis/issues"
   },
-  "homepage": "https://github.com/cjdiaz19/Loam-Data-Analysis#readme"
+  "homepage": "https://github.com/cjdiaz19/Loam-Data-Analysis#readme",
+  "devDependencies": {
+    "@electron-forge/cli": "^6.0.5",
+    "@electron-forge/maker-deb": "^6.0.5",
+    "@electron-forge/maker-rpm": "^6.0.5",
+    "@electron-forge/maker-squirrel": "^6.0.5",
+    "@electron-forge/maker-zip": "^6.0.5",
+    "electron": "^23.1.2"
+  }
 }

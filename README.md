@@ -1,3 +1,3 @@
 # Loam-Data-Analysis
 
-Hello Loam!
+Loam: Soil Analysis project made in ElectronJS

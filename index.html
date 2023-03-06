@@ -2,11 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
-    <!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self';"> -->
     <title>Loam: Soil Analysis</title>
     <link rel="stylesheet" href="style.css">
-    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css"> -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
     <script src="plotly-2.14.0.min.js"></script>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js'></script>
@@ -33,16 +30,6 @@
           <option value="rice">Rice</option>
           <option value="potato">Potato</option>
         </select>
-        <!-- <div class="dropdown-container">0p;
-          <button class="dropdown-btn">Select Type
-            <i class="fa fa-caret-down"></i>
-          </button>
-          <div class="dropdown-content">
-            <a class="option" href="#">Soybean</a>
-            <a class="option" href="#">Corn</a>
-            <a class="option" href="#">Wheat</a>
-          </div>
-        </div> -->
       </div>
 
       <div class="sidebar-element">
@@ -59,9 +46,13 @@
         <input type="button" value="Enter" id="plotBtn">
       </div>
 
+      <div class="sidebar-element">
+        <p id="report"></p>
+      </div>
     </div>
       
     <div class="plot-card">
+
       <div class="plot-container">
         <div class="plots">
           <div id="ampVsTimePlot"></div>
@@ -69,10 +60,6 @@
         <div class="plots">
           <div id="dielectricPlot"></div>
         </div>
-<!-- 
-        <a class="prev" onclick="changePlot(-1)">&#10094;</a>
-        <a class="next" onclick="changePlot(1)">&#10095;</a> -->
-
       </div>
       <br>
 
@@ -83,20 +70,12 @@
         <a class="next" onclick="changePlot(1)">&#10095;</a>
       </div>
 
-
     </div>
   
-  <!-- <div id="ampVsTime"> -->
-    <!-- <div id="ampVsTimePlot"></div> -->
-    <!-- <input type="text" inputmode="numeric" pattern="[0-8.15]{4}" id="depth" placeholder="0 - 8.15"> -->
-
-  <!-- </div> -->
-  <!-- <div id="myDiv"></div> -->
-  <!-- <script src="parse.js"></script> -->
   <script src="navigation.js"></script>
   <script src="moisture-indicator.js"></script>
   <script src="plot.js"></script>
-  <script src="ribbon.js"></script>
+  <script src="plot3d.js"></script>
   <script src="input_validation.js"></script>
 </body>
 
