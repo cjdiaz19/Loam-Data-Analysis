@@ -1,5 +1,5 @@
 # Loam-Data-Analysis
-
+Application built to provide visualization for a sensor that monitors the moisture level of soil
 ## Install
 ### Windows
 1. Download the zipped files for this project [here](https://drive.google.com/file/d/1ELB-kV7QkAkl7w47UbHSE5_PocUV2Rmb/view?usp=share_link).
