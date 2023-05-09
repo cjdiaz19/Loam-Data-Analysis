@@ -1,7 +1,8 @@
 # Loam-Data-Analysis
 
 ## Install
-1. Download the files for this project [here](https://github.com/cjdiaz19/Loam-Data-Analysis/zipball/master) or fork/clone this project.
+### Windows
+1. Download the zipped files for this project [here](https://drive.google.com/file/d/1ELB-kV7QkAkl7w47UbHSE5_PocUV2Rmb/view?usp=share_link).
 2. Extract the folder from the downloaded zip file.
 
 
@@ -27,10 +28,10 @@ Loam-Data-Analysis\out\loam-data-analysis-darwin-arm64\
 ## Install for Future Development
 1. Clone this repository
 2. Install node into the project by navigating to the project folder in your command line and running:
+    - If this command does not work you must install nodeJS
 ```
 npm init
 ```
-    - If this command does not work you must install nodeJS
 3. Next, install electron if needed using the following command:
 ```
 npm install --save-dev electron
