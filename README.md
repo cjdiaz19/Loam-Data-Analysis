@@ -7,20 +7,8 @@
 
 
 ## Use
-
 ### Windows
-1. Navigate to:
-```
-Loam-Data-Analysis\out\loam-data-analysis-win32-x64\
-```
-2. Open the file titled **loam-data-analysis**
-    - Create a shortcut to this application for future use.
-
-### MacOS (M1 Chipset)
-1. Navigate to:
-```
-Loam-Data-Analysis\out\loam-data-analysis-darwin-arm64\
-```
+1. Navigate to the folder extracted from the downloaded zip
 2. Open the file titled **loam-data-analysis**
     - Create a shortcut to this application for future use.
 
@@ -37,6 +25,6 @@ npm init
 npm install --save-dev electron
 ```
 
-For any issues in this installation, try referencing this documentation:
+For any issues in the installation, try referencing this documentation:
 [ElectronJS](https://www.electronjs.org/docs/latest/tutorial/quick-start)
 
